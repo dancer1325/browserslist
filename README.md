@@ -1,53 +1,39 @@
 # Browserslist [![Cult Of Martians][cult-img]][cult]
 
-<img width="120" height="120" alt="Browserslist logo by Anton Popov"
-     src="https://browsersl.ist/logo.svg" align="right">
+* config / BETWEEN different front-end tools, share
+  * target browsers
+  * Node.js versions
 
-The config to share target browsers and Node.js versions between different
-front-end tools. It is used in:
+* uses
+  * [Autoprefixer]
+  * [Babel]
+  * [postcss-preset-env]
+  * [eslint-plugin-compat]
+  * [stylelint-no-unsupported-browser-features]
+  * [postcss-normalize]
+  * [obsolete-webpack-plugin]
 
-* [Autoprefixer]
-* [Babel]
-* [postcss-preset-env]
-* [eslint-plugin-compat]
-* [stylelint-no-unsupported-browser-features]
-* [postcss-normalize]
-* [obsolete-webpack-plugin]
-
-All tools will find target browsers automatically,
-when you add the following to `package.json`:
-
-```json
-  "browserslist": [
+* ways to configure
+  * | `package.json`
+    ```json
+    "browserslist": [
     "defaults and fully supports es6-module",
     "maintained node versions"
-  ]
-```
+    ]
+    ```
+  * | `.browserslistrc` config
+    ```yaml
+    # Browsers that we support
 
-Or in `.browserslistrc` config:
+        defaults and fully supports es6-module
+        maintained node versions
+        ```
 
-```yaml
-# Browsers that we support
+* how does it work?
+  * 💡-- via -- [queries](#queries) 💡
 
-defaults and fully supports es6-module
-maintained node versions
-```
-
-Developers set their version lists using queries like `last 2 versions`
-to be free from updating versions manually.
-Browserslist will use [`caniuse-lite`] with [Can I Use] data for this queries.
-
-You can check how config works at our playground: [`browsersl.ist`](https://browsersl.ist/)
-
-<a href="https://browsersl.ist/">
-  <img src="/img/screenshot.webp" alt="browsersl.ist website">
-</a>
-
-<br>
-<br>
-<div align="center">
-  <a href="https://evilmartians.com/?utm_source=browserslist"><img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg" alt="Sponsored by Evil Martians" width="236" height="54"></a>  <a href="https://cube.dev/?ref=eco-browserslist-github"><img src="https://user-images.githubusercontent.com/986756/154330861-d79ab8ec-aacb-4af8-9e17-1b28f1eccb01.svg" alt="Supported by Cube" width="227" height="46"></a>
-</div>
+* [`browsersl.ist`](https://browsersl.ist/)
+  * == playground / Browserslist + [`caniuse-lite`] + [Can I Use]
 
 [stylelint-no-unsupported-browser-features]: https://github.com/ismay/stylelint-no-unsupported-browser-features
 [obsolete-webpack-plugin]:                   https://github.com/ElemeFE/obsolete-webpack-plugin
@@ -63,42 +49,19 @@ You can check how config works at our playground: [`browsersl.ist`](https://brow
 [cult-img]: https://cultofmartians.com/assets/badges/badge.svg
 [cult]: https://cultofmartians.com/done.html
 
-## Table of Contents
-
-* [Tools](#tools)
-* [Best Practices](#best-practices)
-* [Queries](#queries)
-* [Config File](#config-file)
-* [Shareable Configs](#shareable-configs)
-* [Configuring for Different Environments](#configuring-for-different-environments)
-* [Custom Usage Data](#custom-usage-data)
-* [JS API](#js-api)
-* [Environment Variables](#environment-variables)
-* [Cache](#cache)
-* [Security Contact](#security-contact)
-* [For Enterprise](#for-enterprise)
-
-
-## Sponsors
-
-Browserslist needs your support. We are accepting donations
-[at Open Collective](https://opencollective.com/browserslist).
-
-<a href="https://www.springernature.com/"><img src="https://user-images.githubusercontent.com/19343/227742503-cf7fc2b3-9cc4-481c-97b8-68414d762fda.png" alt="Sponsored by Springer Nature Technology" width="154" height="54"></a>      <a href="https://workleap.com/"><img src="https://cdn.prod.website-files.com/66eab063c614790046e87eef/66f3c89500f8c53829f06098_Logotype.svg" alt="Sponsored by Workleap" width="154" height="40"></a>
-
-
 ## Tools
 
-### Analyze your Browserslist Config
+### / analyze your Browserslist Config
 
-* Run `npx browserslist` in your project directory to see project’s
-  target browsers. This CLI tool is built-in and available in any project
-  with Autoprefixer.
-* [`browserslist-lint`] checks your config for popular mistakes.
-
+* | project directory, `npx browserslist`
+  * see project’s target browsers
+  * built-in & available | ANY project / has Autoprefixer
+* [`browserslist-lint`]
+  * checks your config
 
 ### Update `caniuse-lite`
 
+* TODO:
 * [`update-browserslist-db`] is a CLI tool to update browsers DB for queries
   like `last 2 version` or `>1%`.
 * [`browserslist-update-action`] is a GitHub Action to automatically
@@ -143,26 +106,28 @@ Browserslist needs your support. We are accepting donations
 [`caniuse-api`]:                   https://github.com/Nyalab/caniuse-api
 
 
-### Text Editors
+### IDE's extensions or plugins
 
-These extensions will add syntax highlighting for `.browserslistrc` files.
-
-* [VS Code](https://marketplace.visualstudio.com/items?itemName=webben.browserslist)
-* [Vim](https://github.com/browserslist/vim-browserslist)
-* [WebStorm](https://plugins.jetbrains.com/plugin/16139-browserslist)
+* allows
+  * syntax highlighting | `.browserslistrc` files
+* EXISTING
+  * [VS Code](https://marketplace.visualstudio.com/items?itemName=webben.browserslist)
+  * [Vim](https://github.com/browserslist/vim-browserslist)
+  * [WebStorm](https://plugins.jetbrains.com/plugin/16139-browserslist)
 
 ## Best Practices
 
-* There is a `defaults` query, which gives a reasonable configuration
-  for most users:
+* `defaults`
+  * == default query
+  * use cases
+  * MOST users
+    ```json
+      "browserslist": [
+        "defaults"
+      ]
+    ```
 
-  ```json
-    "browserslist": [
-      "defaults"
-    ]
-  ```
-
-* If you want to change the default set of browsers, we recommend including
+* TODO: If you want to change the default set of browsers, we recommend including
   `last 2 versions, not dead, > 0.2%`. This is because `last n versions` on its
   own does not add popular old versions, while only using a percentage of usage
   numbers above `0.2%` will in the long run make popular browsers even more
@@ -180,43 +145,46 @@ These extensions will add syntax highlighting for `.browserslistrc` files.
 
 ## Queries
 
-Browserslist will use browsers and Node.js versions query
-from one of these sources:
-
-1. `.browserslistrc` config file in current or parent directories.
-2. `browserslist` key in `package.json` file in current or parent directories.
-3. `browserslist` config file in current or parent directories.
-4. `BROWSERSLIST` environment variable.
-5. If the above methods did not produce a valid result
-   Browserslist will use defaults:
-   `> 0.5%, last 2 versions, Firefox ESR, not dead`.
-
+* sources / Browserslist wath
+  1. | current OR parent directories
+     1. `.browserslistrc`
+     2. 's `package.json`'s key `browserslist`
+     3. `browserslist`
+  2. `BROWSERSLIST` environment variable
+  3. if PREVIOUS methods did NOT produce a valid result -> Browserslist will use defaults
+    ```
+    > 0.5%, last 2 versions, Firefox ESR, not dead
+    ```
 
 ### Query Composition
 
-An `or` combiner can use the keyword `or` as well as `,`.
-`last 1 version or > 1%` is equal to `last 1 version, > 1%`.
+* `or` == `,`
+  ```
+  last 1 version or > 1%
 
-`and` query combinations are also supported to perform an
-intersection of all the previous queries:
-`last 1 version or chrome > 75 and > 1%` will select
-(`browser last version` or `Chrome since 76`) and `more than 1% marketshare`.
+  # ==
+  last 1 version, > 1%
+  ```
 
-There are 3 different ways to combine queries as depicted below. First you start
-with a single query and then we combine the queries to get our final list.
+* `and`
+  * == intersection of ALL PREVIOUS queries
+    ```
+    last 1 version or chrome > 75 and > 1%
 
-Obviously you can *not* start with a `not` combiner, since there is no left-hand
-side query to combine it with. The left-hand is always resolved as `and`
-combiner even if `or` is used (this is an API implementation specificity).
+    # ==
+    # `browser last version` or `Chrome since 76`         &     `more than 1% marketshare`
+    ```
 
-| Query combiner type | Illustration | Example |
-| ------------------- | :----------: | ------- |
-|`or`/`,` combiner <br> (union) | ![Union of queries](img/union.svg)  | `> .5% or last 2 versions` <br> `> .5%, last 2 versions` |
-| `and` combiner <br> (intersection) | ![intersection of queries](img/intersection.svg) | `> .5% and last 2 versions` |
-| `not` combiner <br> (relative complement) | ![Relative complement of queries](img/complement.svg) | These three are equivalent to one another: <br> `> .5% and not last 2 versions` <br> `> .5% or not last 2 versions` <br> `> .5%, not last 2 versions` |
+* ways to combine queries
 
-_A quick way to test your query is to do `npx browserslist '> 0.3%, not dead'`
-in your terminal._
+| Query combiner type | Illustration | Example | Restrictions                                            |
+| ------------------- | :----------: | ------- |---------------------------------------------------------|
+|`or`/`,` combiner <br> (union) | ![Union of queries](img/union.svg)  | `> .5% or last 2 versions` <br> `> .5%, last 2 versions` |                                                         |
+| `and` combiner <br> (intersection) | ![intersection of queries](img/intersection.svg) | `> .5% and last 2 versions` | ALTHOUGH you start (left-hand) with it -> `and` is used |
+| `not` combiner <br> (relative complement) | ![Relative complement of queries](img/complement.svg) | These three are equivalent to one another: <br> `> .5% and not last 2 versions` <br> `> .5% or not last 2 versions` <br> `> .5%, not last 2 versions` | ❌NOT start (left-hand) with it❌                                    |
+
+* `npx browserslist '> 0.3%, not dead'`
+  * way to test your query
 
 ### Full List
 
@@ -399,8 +367,8 @@ Browserslist will check config in every directory in `path`.
 So, if tool process `app/styles/main.css`, you can put config to root,
 `app/` or `app/styles`.
 
-You can specify direct path in `BROWSERSLIST_CONFIG` environment variables.
-
+* `BROWSERSLIST_CONFIG`
+  * environment variable / specify direct path
 
 ## Shareable Configs
 
@@ -667,8 +635,7 @@ with [environment variables]:
   BROWSERSLIST="> 5%" npx webpack
    ```
 
-* `BROWSERSLIST_CONFIG` with path to config file.
-
+* `BROWSERSLIST_CONFIG=pathToConfigFile`
    ```sh
   BROWSERSLIST_CONFIG=./config/browserslist npx webpack
    ```
@@ -746,25 +713,10 @@ To disable the caching altogether, set the `BROWSERSLIST_DISABLE_CACHE`
 environment variable.
 
 
-## Security Contact
-
-To report a security vulnerability, please use the [Tidelift security contact].
-Tidelift will coordinate the fix and disclosure.
-
-[Tidelift security contact]: https://tidelift.com/security
-
-
 ## For Enterprise
 
-Available as part of the Tidelift Subscription.
-
-The maintainers of `browserslist` and thousands of other packages are working
-with Tidelift to deliver commercial support and maintenance for the open source
-dependencies you use to build your applications. Save time, reduce risk,
-and improve code health, while paying the maintainers of the exact dependencies
-you use. [Learn more.](https://tidelift.com/subscription/pkg/npm-browserslist?utm_source=npm-browserslist&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
-
+* -- via -- [Tidelift Subscription](https://tidelift.com/subscription/pkg/npm-browserslist?utm_source=npm-browserslist&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
 
 ## Browsers Data Updating
 
-See [`update-browserslist-db` docs](https://github.com/browserslist/update-db#readme)
+* use [`update-browserslist-db`](https://github.com/browserslist/update-db#readme)
