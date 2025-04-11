@@ -145,7 +145,7 @@
 
 ## Queries
 
-* sources / Browserslist wath
+* sources / Browserslist watch
   1. | current OR parent directories
      1. `.browserslistrc`
      2. 's `package.json`'s key `browserslist`
